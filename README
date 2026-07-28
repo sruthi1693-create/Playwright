@@ -1,0 +1,11 @@
+Playwright Library (playwright)
+This is the core Node.js library that gives you low‑level control over browsers — Chromium, Firefox, WebKit. 
+The things you can do:
+Launching browsers, Creating browser contexts and pages, Navigating, clicking, filling forms, Taking screenshots etc..
+the things you cannot do:
+Test frameworks, assertions, or reporting by itself.
+
+Playwright Test (‘@playwright/test’)
+This is Playwright Library + a test runner.
+The things you can do:
+A full test framework, Built-in assertions, Auto-waiting, retries, timeout settings, Parallel test execution, Built-in reporting, tracing, screenshots, videos and fixtures for the intialzation.
