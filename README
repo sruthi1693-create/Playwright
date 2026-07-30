@@ -9,3 +9,10 @@ Playwright Test (‘@playwright/test’)
 This is Playwright Library + a test runner.
 The things you can do:
 A full test framework, Built-in assertions, Auto-waiting, retries, timeout settings, Parallel test execution, Built-in reporting, tracing, screenshots, videos and fixtures for the intialzation.
+
+
+Page Fixture: A single tab or window, when your test needs to interact with elements on a web screen.
+
+Browser Context Fixture: A secure, isolated sandbox—like a private or incognito profile—created inside the browser app. Used to manage storage states, handle multiple user sessions at the same time, or open multiple tabs.
+
+
