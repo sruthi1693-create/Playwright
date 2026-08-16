@@ -19,19 +19,39 @@ test.only('Tech summit booking', async ({ page }) => {
   await eventsDashBoard.browserEvents.click();
 
   await expect(eventsTab.upcomingeventsTitle).toBeVisible();
-  await expect(eventsDashBoard.page.url()).toContain('/events');
-  
-
+  await expect(eventsTab.page.url()).toContain('/events');
   await eventsTab.keywordSearch.fill("world");
+   await expect(eventsTab.eventsCard.nth(0)).toBeVisible();
   await eventsTab.categorySearch.selectOption("🎙 Conference");
+   await expect(eventsTab.eventsCard.nth(0)).toBeVisible();
   await eventsTab.citiesSearch.selectOption("Hyderabad");
-  await expect(eventsTab.eventsCard).toBeVisible();
+  await expect(eventsTab.eventsCard.nth(0)).toBeVisible();
   const count = await eventsTab.eventsCard.count();
-  console.log("Number of events available: %s", count);
   await expect(count).toBeGreaterThanOrEqual(1);
-  const worldTechSummitCard = eventsTab.eventsCard.filter({ hasText: "World Tech Summit" });
-  await expect(worldTechSummitCard.locator('h3')).toHaveText("World Tech Summit");
+  const eventName =  "World Tech Summit";
+  const worldTechSummitCard = eventsTab.eventsCard.filter({ hasText: eventName });
+  await expect(worldTechSummitCard.locator('h3')).toHaveText(eventName);
+  const price = await worldTechSummitCard.locator('p').textContent();
   await expect(worldTechSummitCard.locator('p')).toContainText("$");
-  const numofseats = await worldTechSummitCard.locator('p:below(div)').textContent();
-  console.log("Number of seats available: %s", numofseats);
+  const numofseats = await worldTechSummitCard.locator('span:below(p)').textContent();
+  const seats = numofseats?.split(" ")[0];
+  await expect(parseInt(seats)).toBeGreaterThan(0);
+  await worldTechSummitCard.locator('#book-now-btn').click();
+  await expect(eventsTab.worldTechSummitDetailPageTitle).toBeVisible();
+  await expect(eventsTab.page.url()).toContain('/events/');
+  await expect(eventsTab.PageTitle).toHaveText(eventName);
+  await expect(eventsTab.price).toHaveText(price);
+  await eventsTab.page.goBack();
+  await expect(eventsTab.upcomingeventsTitle).toBeVisible();
+  await eventsTab.clearfilter.click();
+ 
+  const count1 = await eventsTab.eventsCard.count();
+  await expect(count1).toBeGreaterThanOrEqual(3);
+  for (let i = 0; i < count1; i++) {
+    await expect(eventsTab.eventsCard.nth(i).locator('h3')).not.toBeEmpty();
+  }
+  const titlefirst = await eventsTab.eventsCard.nth(0).locator('h3').textContent();
+  const titlelast = await eventsTab.eventsCard.nth(count1-1).locator('h3').textContent();
+  await expect(titlefirst).not.toEqual(titlelast);  
+
 });
