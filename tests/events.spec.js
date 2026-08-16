@@ -5,7 +5,7 @@ import EventsTab from '../pages/EventsTab';
 
 
 
-test.only('Tech summit booking', async ({ page }) => {
+test('Tech summit booking', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const eventsDashBoard = new EventsDashBoard(page);
   const eventsTab = new EventsTab(page);
