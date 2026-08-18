@@ -9,10 +9,7 @@ test('Tech summit booking', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const eventsDashBoard = new EventsDashBoard(page);
   const eventsTab = new EventsTab(page);
-  await loginPage.openLoginPage();
-  await loginPage.emailInput.fill("sruthi1693@gmail.com");
-  await loginPage.passwordLabel.fill("Babbi@1993");
-  await loginPage.signButton.click();
+  await loginPage.login("sruthi1693@gmail.com", "Babbi@1993");
   
   await expect(page).toHaveURL("https://eventhub.rahulshettyacademy.com/");
   await expect(eventsDashBoard.title).toBeVisible();

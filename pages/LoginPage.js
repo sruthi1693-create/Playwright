@@ -1,3 +1,5 @@
+import { threadId } from "node:worker_threads";
+
 class LoginPage {
   constructor(page) {
     this.page = page;
@@ -9,6 +11,14 @@ class LoginPage {
 
   async openLoginPage() {
     await this.page.goto('/login');
+  }
+
+  async login(emailName ,password){
+  await this.openLoginPage();
+  await this.emailInput.fill(emailName);
+  await this.passwordLabel.fill(password);
+  await this.signButton.click(); 
+  
   }
 }
 
